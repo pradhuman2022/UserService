@@ -29,4 +29,7 @@ public class UserDetailDTO {
 
     @JsonProperty("profilePicS3")
     private String profilePicS3;
+
+    @JsonProperty("email")
+    private String email;
 }

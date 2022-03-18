@@ -37,4 +37,7 @@ public class UserDetailEntity {
 
     @DynamoDBAttribute(attributeName = "ProfilePicS3")
     private String profilePicS3;
+
+    @DynamoDBAttribute(attributeName = "Email")
+    private String email;
 }

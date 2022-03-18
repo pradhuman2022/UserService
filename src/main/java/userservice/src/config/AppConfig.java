@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import userservice.src.security.Secure;
 
 @Slf4j
 @Configuration
@@ -50,5 +51,10 @@ public class AppConfig {
     @Bean
     ObjectMapper getObjectMapper() {
         return new ObjectMapper();       
+    }
+
+    @Bean
+    Secure getSecure() {
+        return new Secure();
     }
 }

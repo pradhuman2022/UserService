@@ -17,10 +17,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+
 import userservice.src.exceptions.ConflictException;
 import userservice.src.exceptions.DALException;
 import userservice.src.exceptions.UnauthorizedException;
 import userservice.src.models.UserDetailDTO;
+import userservice.src.security.Secure;
 import userservice.src.service.UserProfileService;
 
 
@@ -32,6 +34,9 @@ public class UserProfileController {
     @Autowired
     private UserProfileService userDetailService;
 
+    @Autowired
+    private Secure secure;
+    
     /**
      * Get user details from persisentce datastore
      * @param id
@@ -65,9 +70,17 @@ public class UserProfileController {
         
         try {
             //generate key for encryption
+            String userIdForClient = userDetailDTO.getUserId();
+
+            userDetailDTO.setUserId(secure.encode(userDetailDTO.getUserId() + "artlok_@_user_&_secure"));
+            
+            log.info(userDetailDTO.getUserId(), "encoded userid");
+            
             userDetailService.signUpUser(userDetailDTO);
 
             //@Todo add data to neptune
+            userDetailDTO.setUserId(userIdForClient);
+        
             return Response.ok(userDetailDTO).build();
         } catch (ConflictException e) {
             throw new ResponseStatusException(HttpStatus.SC_CONFLICT, 

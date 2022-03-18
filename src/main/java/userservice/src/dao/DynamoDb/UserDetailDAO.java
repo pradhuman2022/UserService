@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+
 import userservice.src.entity.UserDetailEntity;
 import userservice.src.exceptions.ConflictException;
 import userservice.src.exceptions.DALException;
